@@ -19,6 +19,30 @@ a:hover{text-decoration:underline}
 a:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media (max-width:600px){h1{font-size:34px !important}h2{font-size:28px !important}footer p{font-size:26px !important}#passive p.def{font-size:24px !important}}
+/* 패시브하우스 원리 그림 */
+.ph-fig{margin:16px 0 0;display:flex;flex-direction:column;gap:16px;max-width:380px}
+.ph-svg{display:block;width:100%;height:auto}
+.ph-wall{fill:none;stroke:#1F2328;stroke-width:2;stroke-linejoin:round}
+.ph-ins{fill:#F09800;opacity:.9}
+.ph-ins-gap{fill:#F09800;opacity:.22}
+.ph-ground{stroke:#1F2328;stroke-width:2}
+.ph-hatch line{stroke:#D9DDE2;stroke-width:1.5}
+.ph-frame{fill:#FFFFFF;stroke:#1F2328;stroke-width:2}
+.ph-glass{stroke:#2F6FB0;stroke-width:2}
+.ph-hrv{fill:#FFFFFF;stroke:#1F2328;stroke-width:2}
+.ph-duct{fill:none;stroke:#1F2328;stroke-width:2}
+.ph-flow-in{stroke:#2F6FB0;stroke-width:2.5;fill:none}
+.ph-flow-out{stroke:#4B5560;stroke-width:2.5;fill:none}
+.ph-tb{fill:none;stroke:#1F2328;stroke-width:1.5;stroke-dasharray:4 3}
+.ph-air{fill:none;stroke:#B81820;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1200;stroke-dashoffset:0}
+.js .ph-air{stroke-dashoffset:1200}
+.js .ph-fig.is-visible .ph-air{animation:ph-draw 2.6s ease-out .2s forwards}
+@keyframes ph-draw{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.js .ph-air{stroke-dashoffset:0;animation:none !important}}
+.ph-legend{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;line-height:1.5;color:#4B5560}
+.ph-legend li{display:flex;align-items:center;gap:8px}
+.ph-legend svg{width:22px;height:14px;flex:none}
+@media (max-width:600px){.ph-fig{max-width:320px}}
 </style>
 </head>
 <body>
@@ -77,6 +101,70 @@ a:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 <div style="display: flex; flex-wrap: wrap; gap: 24px 72px; align-items: flex-start">
 <div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
 <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-weight: 700; font-size: 36px; line-height: 1.3">패시브하우스란?</h2>
+<figure class="ph-fig">
+<!-- 패시브하우스 5대 원칙: 단열·기밀·고성능창호·열회수환기·열교없는 디테일 -->
+<svg class="ph-svg" viewBox="0 0 440 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- 지면 -->
+        <line class="ph-ground" x1="10" y1="330" x2="430" y2="330"/>
+        <g class="ph-hatch">
+          <line x1="30" y1="340" x2="18" y2="356"/><line x1="70" y1="340" x2="58" y2="356"/>
+          <line x1="110" y1="340" x2="98" y2="356"/><line x1="150" y1="340" x2="138" y2="356"/>
+          <line x1="190" y1="340" x2="178" y2="356"/><line x1="230" y1="340" x2="218" y2="356"/>
+          <line x1="270" y1="340" x2="258" y2="356"/><line x1="310" y1="340" x2="298" y2="356"/>
+          <line x1="350" y1="340" x2="338" y2="356"/><line x1="390" y1="340" x2="378" y2="356"/>
+          <line x1="430" y1="340" x2="418" y2="356"/>
+        </g>
+
+        <!-- 단열층: 완성된 부분 (왼쪽 벽 + 왼쪽 지붕) -->
+        <polygon class="ph-ins" points="70,330 70,170 220,40 220,72 100,176 100,330"/>
+        <!-- 단열층: 바닥 -->
+        <rect class="ph-ins" x="100" y="300" width="240" height="30"/>
+        <!-- 단열층: 아직 시공 전 (오른쪽 지붕 + 오른쪽 벽) -->
+        <polygon class="ph-ins-gap" points="220,40 370,170 370,330 340,330 340,176 220,72"/>
+
+        <!-- 구조체 외곽선 -->
+        <polygon class="ph-wall" points="70,330 70,170 220,40 370,170 370,330"/>
+        <polyline class="ph-wall" points="100,300 100,176 220,72 340,176 340,300"/>
+        <line class="ph-wall" x1="100" y1="300" x2="340" y2="300"/>
+
+        <!-- 고효율 창호: 왼쪽 벽 단면, 3중 유리 -->
+        <rect class="ph-frame" x="62" y="200" width="46" height="64" rx="1"/>
+        <line class="ph-glass" x1="76" y1="206" x2="76" y2="258"/>
+        <line class="ph-glass" x1="85" y1="206" x2="85" y2="258"/>
+        <line class="ph-glass" x1="94" y1="206" x2="94" y2="258"/>
+
+        <!-- 열회수환기장치 + 덕트 -->
+        <defs>
+          <marker id="ph-ah-in" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2F6FB0"/></marker>
+          <marker id="ph-ah-out" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4B5560"/></marker>
+        </defs>
+        <!-- 덕트: 본체에서 오른쪽 벽을 지나 실외로 -->
+        <line class="ph-duct" x1="292" y1="206" x2="378" y2="206"/>
+        <line class="ph-duct" x1="292" y1="230" x2="378" y2="230"/>
+        <!-- 본체: 열교환 소자(X자) -->
+        <rect class="ph-hrv" x="236" y="196" width="56" height="44" rx="2"/>
+        <line x1="236" y1="196" x2="292" y2="240" stroke="#1F2328" stroke-width="1.5"/>
+        <line x1="292" y1="196" x2="236" y2="240" stroke="#1F2328" stroke-width="1.5"/>
+        <!-- 공기 흐름: 신선한 바깥 공기 → 실내 급기 (파랑), 실내 배기 → 바깥 (회색) -->
+        <line class="ph-flow-in" x1="420" y1="206" x2="384" y2="206" marker-end="url(#ph-ah-in)"/>
+        <line class="ph-flow-in" x1="232" y1="206" x2="196" y2="206" marker-end="url(#ph-ah-in)"/>
+        <line class="ph-flow-out" x1="196" y1="230" x2="228" y2="230" marker-end="url(#ph-ah-out)"/>
+        <line class="ph-flow-out" x1="384" y1="230" x2="420" y2="230" marker-end="url(#ph-ah-out)"/>
+
+        <!-- 열교 없는 설계: 벽·바닥 단열이 끊김 없이 이어지는 모서리 -->
+        <circle class="ph-tb" cx="92" cy="318" r="30"/>
+
+        <!-- 기밀층: 실내 쪽을 한 바퀴 -->
+        <polygon class="ph-air" points="108,292 108,180 220,82 332,180 332,292"/>
+      </svg>
+<ul class="ph-legend" aria-label="그림 설명">
+        <li><svg viewBox="0 0 22 14" aria-hidden="true"><rect x="1" y="3" width="20" height="8" fill="#F09800"/></svg>단열</li>
+        <li><svg viewBox="0 0 22 14" aria-hidden="true"><line x1="1" y1="7" x2="21" y2="7" stroke="#B81820" stroke-width="3"/></svg>기밀</li>
+        <li><svg viewBox="0 0 22 14" aria-hidden="true"><rect x="2" y="1" width="18" height="12" fill="none" stroke="#1F2328" stroke-width="1.5"/><line x1="7" y1="3" x2="7" y2="11" stroke="#2F6FB0" stroke-width="1.5"/><line x1="11" y1="3" x2="11" y2="11" stroke="#2F6FB0" stroke-width="1.5"/><line x1="15" y1="3" x2="15" y2="11" stroke="#2F6FB0" stroke-width="1.5"/></svg>고성능창호</li>
+        <li><svg viewBox="0 0 22 14" aria-hidden="true"><rect x="3" y="1" width="16" height="12" fill="none" stroke="#1F2328" stroke-width="1.5"/><line x1="3" y1="1" x2="19" y2="13" stroke="#1F2328" stroke-width="1.2"/><line x1="19" y1="1" x2="3" y2="13" stroke="#1F2328" stroke-width="1.2"/></svg>열회수환기장치</li>
+        <li><svg viewBox="0 0 22 14" aria-hidden="true"><circle cx="11" cy="7" r="5.5" fill="none" stroke="#1F2328" stroke-width="1.3" stroke-dasharray="2.5 2"/></svg>열교없는 디테일</li>
+      </ul>
+</figure>
 </div>
 <div style="flex: 2 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
 <p style="margin: 0; font-size: 18px; font-weight: 500; color: #4B5560">패시브하우스는 에너지 표준이 아니라 최고의 편안함을 보장하는 통합적인 개념입니다. 정확한 정의는 다음과 같습니다.</p>
@@ -286,5 +374,16 @@ a:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 </footer>
 
 </div>
+<script>
+(function(){
+  var fig=document.querySelector('.ph-fig');
+  if(!fig||!('IntersectionObserver' in window))return;
+  document.documentElement.classList.add('js');
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){fig.classList.add('is-visible');io.disconnect();}});
+  },{threshold:0.4});
+  io.observe(fig);
+})();
+</script>
 </body>
 </html>
